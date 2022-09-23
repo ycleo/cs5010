@@ -1,0 +1,8 @@
+package problem3;
+
+public enum FilerType {
+  EMPLOYEE,
+  MARRIED_FILLING_JOINTLY,
+  MARRIED_FILLING_SEPARATELY,
+  HEAD_OF_THE_HOUSEHOLD
+}
