@@ -1,19 +1,24 @@
 package problem1;
 
-import java.util.Random;
+import java.rmi.NoSuchObjectException;
+import java.util.NoSuchElementException;
 
-public class FrequentFlyer {
+public class FrequentFlyer implements FrequentFlyerInterface {
 
   private String accountId;
-  private String name;
+  private Name name;
   private String email;
   private MilesBalance milesBalance;
 
-  public FrequentFlyer(String name, String email) {
-    this.accountId = FlyersDatabase.newAccountId();
-    this.name = name;
-    this.email = email;
-    this.milesBalance = new MilesBalance();
+  public FrequentFlyer(String accountId, Name name, String email) throws IllegalArgumentException {
+    if (accountId.length() == 12) {
+      this.accountId = accountId;
+      this.name = name;
+      this.email = email;
+      this.milesBalance = new MilesBalance();
+    } else {
+      throw new IllegalArgumentException("Account ID must be 12 characters long!");
+    }
   }
 
   // get flyer's account ID
@@ -22,7 +27,7 @@ public class FrequentFlyer {
   }
 
   // get flyer's name
-  public String getName() {
+  public Name getName() {
     return this.name;
   }
 
@@ -38,19 +43,52 @@ public class FrequentFlyer {
 
   // transfer miles to the other frequent flyer
   public void transferMiles(Deposit deposit) {
-    // get the deposit info (miles amount, recipient ID, recipient name)
-    int milesAmount = deposit.getMilesAmount();
-    String recipientId = deposit.getRecipientId();
+    // transfer pre-check
+    recipientExistenceCheck(deposit);
+    recipientIDMatchesNameCheck(deposit);
+    transferMilesAmountAvailabilityCheck(deposit);
 
-    // deposit availability check
-    if (FlyersDatabase.flyerExists(recipientId) && deposit.idMatchesName()
-        && deposit.depositMilesWithinRange() && this.milesBalance.enoughForDecrement(milesAmount)) {
-      // get the frequent flyer (recipient)
-      FrequentFlyer recipient = FlyersDatabase.getFlyer(recipientId);
-      // add miles to the balance of the recipient
-      recipient.milesBalance.incrementMiles(milesAmount);
-      // deduct miles from the balance of the sender
-      this.milesBalance.decrementMiles(milesAmount);
+    // get the deposit info (miles amount, recipient)
+    int depositMilesAmount = deposit.getMilesAmount();
+    FrequentFlyer recipient = FlyersDatabase.getFlyer(deposit.getRecipientId());
+    // add miles to the balance of the recipient
+    recipient.milesBalance.setMilesAvailable(
+        recipient.getMilesBalance().getMilesAvailable() + depositMilesAmount);
+    recipient.milesBalance.setMilesExpireThisYear(
+        recipient.getMilesBalance().getMilesExpireThisYear() + depositMilesAmount);
+    // deduct miles from the balance of the sender
+    this.milesBalance.setMilesAvailable(
+        this.getMilesBalance().getMilesAvailable() - depositMilesAmount);
+    this.milesBalance.setMilesEarnedThisYear(
+        this.getMilesBalance().getMilesEarnedThisYear() - depositMilesAmount);
+    this.milesBalance.setMilesExpireThisYear(
+        this.getMilesBalance().getMilesExpireThisYear() - depositMilesAmount);
+  }
+
+  protected void recipientExistenceCheck(Deposit deposit) {
+    if (!FlyersDatabase.accountIdExists(deposit.getRecipientId())) {
+      throw new NoSuchElementException("Recipient doesn't exist!");
+    }
+
+  }
+
+  protected void recipientIDMatchesNameCheck(Deposit deposit) {
+    // get the recipient ID and name (deposit info)
+    String recipientId = deposit.getRecipientId();
+    Name recipientName = deposit.getRecipientName();
+    // fetch the flyer from the system by recipient ID
+    FrequentFlyer flyer = FlyersDatabase.getFlyer(recipientId);
+    if (!recipientName.equals(flyer.getName())) {
+      throw new SecurityException("Recipient's ID doesn't match recipient's name in the system!");
+    }
+  }
+
+  protected void transferMilesAmountAvailabilityCheck(Deposit deposit) {
+    int giverAvailableMiles = this.getMilesBalance().getMilesAvailable();
+    int depositMilesAmount = deposit.getMilesAmount();
+    if (giverAvailableMiles < depositMilesAmount) {
+      throw new IllegalArgumentException(
+          "Deposit miles amount exceeds giver's available miles amount.");
     }
   }
 }

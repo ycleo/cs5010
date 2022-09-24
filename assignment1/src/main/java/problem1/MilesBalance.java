@@ -6,9 +6,6 @@ public class MilesBalance {
   private int milesEarnedThisYear = 0;
   private int milesExpireThisYear = 0;
 
-  public MilesBalance() {
-  }
-
   // get available balance
   public int getMilesAvailable() {
     return this.milesAvailable;
@@ -25,28 +22,19 @@ public class MilesBalance {
   }
 
   // increment available miles
-  public void incrementMiles(int milesAmount) {
-    this.milesAvailable += milesAmount;
-    this.milesEarnedThisYear += milesAmount;
-    this.milesExpireThisYear += milesAmount;
+  public void setMilesAvailable(int milesAmount) {
+    this.milesAvailable = milesAmount;
   }
 
-  // check available miles is enough for decrement
-  public boolean enoughForDecrement(int milesAmount) {
-    if (this.milesAvailable >= milesAmount) {
-      return true;
-    } else {
-      System.out.println("The flyer has not enough miles to deduct...");
-      return false;
-    }
+  public void setMilesEarnedThisYear(int milesEarnedThisYear) {
+    this.milesEarnedThisYear = milesEarnedThisYear;
   }
 
-  // decrement available miles
-  public void decrementMiles(int milesAmount) {
-    // decrement available miles
-    this.milesAvailable -= milesAmount;
-    this.milesExpireThisYear -= milesAmount;
+  public void setMilesExpireThisYear(int milesExpireThisYear) {
+    this.milesExpireThisYear = milesExpireThisYear;
   }
+}
+
 
 //  // set miles earned this year to zero
 //  public void setMilesEarnedThisYearToZero() {
@@ -59,5 +47,4 @@ public class MilesBalance {
 //    // this year passed -> miles expires -> set to zero
 //    this.milesExpireThisYear = 0;
 //  }
-}
 
