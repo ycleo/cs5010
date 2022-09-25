@@ -24,7 +24,7 @@ public class FrequentFlyerTest {
     expectedEmail = "leo@neu.edu";
     testFlyer = new FrequentFlyer(expectedAccountId, expectedName, expectedEmail);
     expectedMilesBalance = testFlyer.getMilesBalance();
-    FlyersDatabase.addFlyer(testFlyer);
+    FlyerSystem.addFlyer(testFlyer);
 
     testFlyer1 = new FrequentFlyer("987654321ab0", new Name("Tony", "Iron", "Stark"),
         "marvel@gmail.com");
@@ -113,6 +113,6 @@ public class FrequentFlyerTest {
 
   @AfterEach
   void afterEachTest() {
-    FlyersDatabase.removeFlyer(testFlyer.getAccountId());
+    FlyerSystem.removeFlyer(testFlyer.getAccountId());
   }
 }

@@ -11,6 +11,21 @@ public class MakeModel {
     return this.make;
   }
   public String getModel() {
-    return this.model;
+      return this.model;
+  }
+
+  public boolean equals(MakeModel makeModelCompare) {
+      if (this == makeModelCompare) {
+        return true;
+      }
+      if (makeModelCompare == null) {
+        return false;
+      }
+      String makeCompare = makeModelCompare.getMake();
+      String modelCompare = makeModelCompare.getModel();
+
+      return makeCompare.equals(this.make)
+          && modelCompare.equals(this.model);
   }
 }
+

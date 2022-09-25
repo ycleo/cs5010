@@ -2,9 +2,7 @@ package problem2;
 
 import java.util.HashMap;
 
-public interface Vehicle {
-
-  HashMap<String, Vehicle> vehicles = new HashMap<String, Vehicle>();
+public interface VehicleInterface {
 
   String getId();
 

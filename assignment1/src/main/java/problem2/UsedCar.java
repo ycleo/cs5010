@@ -1,11 +1,11 @@
 package problem2;
 
-public class OldCar extends Car {
+public class UsedCar extends Car {
 
   private Integer numPrevOwner;
   private Integer numMinorAccident;
 
-  public OldCar(Integer manufactureYear, MakeModel makeModel, Double mSRPrice, Integer mileage,
+  public UsedCar(Integer manufactureYear, MakeModel makeModel, Double mSRPrice, Integer mileage,
       Integer numPrevOwner, Integer numMinorAccident) {
     super(manufactureYear, makeModel, mSRPrice, mileage);
     this.numPrevOwner = numPrevOwner;
