@@ -2,14 +2,27 @@ package problem3;
 
 public class IndividualFiler extends TaxFiler {
 
-  public IndividualFiler(FilerType filerType, String taxId, ContactInfo contactInfo, Double lastYearEarnings,
+  private FilerType filerType;
+
+  public IndividualFiler(ContactInfo contactInfo, Double lastYearEarnings,
       Double incomeTaxPaid, TaxMitigateExpense taxMitigateExpense) {
-    this.filerType = filerType;
-    this.taxId = taxId;
-    this.lastYearEarnings = lastYearEarnings;
-    this.incomeTaxPaid = incomeTaxPaid;
-    this.taxMitigateExpense = taxMitigateExpense;
+    super(contactInfo, lastYearEarnings, incomeTaxPaid, taxMitigateExpense);
+    this.filerType = FilerType.EMPLOYEE;
   }
+
+  public FilerType getFilerType() {
+    return this.filerType;
+  }
+
+  public Double calculateSavingsDeduction() {
+    Savings savings = this.getTaxMitigateExpense().getSavings();
+    Double savingsDeduction =
+        (savings.getRetireSavings() + savings.getHealthSavings())
+            * 0.7;
+    return (savingsDeduction < this.calculateBasicTaxableIncome()) ? savingsDeduction
+        : Double.valueOf(0.0);
+  }
+
 
   public Double calculateTaxes() {
     Double basicTaxableIncome = this.calculateBasicTaxableIncome();

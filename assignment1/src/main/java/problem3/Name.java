@@ -10,11 +10,11 @@ public class Name {
     this.lastName = lastName;
   }
 
-  private String getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
 
-  private String getLastName() {
+  public String getLastName() {
     return lastName;
   }
 }
