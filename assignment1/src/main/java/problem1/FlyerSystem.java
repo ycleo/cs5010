@@ -3,26 +3,27 @@ package problem1;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-public class FlyersDatabase {
+public class FlyerSystem {
 
   // Hash map to store <account ID, frequent flyer>
   private static HashMap<String, FrequentFlyer> flyers = new HashMap<String, FrequentFlyer>();
 
+  // check the flyer exists by the accountId
+  public static boolean flyerExists(String accountId) {
+    return flyers.containsKey(accountId);
+  }
 
   // add new registered flyer
   public static void addFlyer(FrequentFlyer flyer) {
     String flyerId = flyer.getAccountId();
 
     // check it is not in the flyers database
-    if (!accountIdExists(flyerId)) {
+    if (!flyerExists(flyerId)) {
       flyers.put(flyerId, flyer);
     } else {
       throw new NoSuchElementException("Account ID " + flyerId + " already exists!");
     }
   }
-
-  // check the flyer exists by the accountId
-  public static boolean accountIdExists(String accountId) { return flyers.containsKey(accountId); }
 
   // get the existing flyer
   public static FrequentFlyer getFlyer(String accountId) {

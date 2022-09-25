@@ -1,6 +1,5 @@
 package problem1;
 
-import java.rmi.NoSuchObjectException;
 import java.util.NoSuchElementException;
 
 public class FrequentFlyer implements FrequentFlyerInterface {
@@ -50,7 +49,7 @@ public class FrequentFlyer implements FrequentFlyerInterface {
 
     // get the deposit info (miles amount, recipient)
     int depositMilesAmount = deposit.getMilesAmount();
-    FrequentFlyer recipient = FlyersDatabase.getFlyer(deposit.getRecipientId());
+    FrequentFlyer recipient = FlyerSystem.getFlyer(deposit.getRecipientId());
     // add miles to the balance of the recipient
     recipient.milesBalance.setMilesAvailable(
         recipient.getMilesBalance().getMilesAvailable() + depositMilesAmount);
@@ -66,7 +65,7 @@ public class FrequentFlyer implements FrequentFlyerInterface {
   }
 
   protected void recipientExistenceCheck(Deposit deposit) {
-    if (!FlyersDatabase.accountIdExists(deposit.getRecipientId())) {
+    if (!FlyerSystem.flyerExists(deposit.getRecipientId())) {
       throw new NoSuchElementException("Recipient doesn't exist!");
     }
 
@@ -77,7 +76,7 @@ public class FrequentFlyer implements FrequentFlyerInterface {
     String recipientId = deposit.getRecipientId();
     Name recipientName = deposit.getRecipientName();
     // fetch the flyer from the system by recipient ID
-    FrequentFlyer flyer = FlyersDatabase.getFlyer(recipientId);
+    FrequentFlyer flyer = FlyerSystem.getFlyer(recipientId);
     if (!recipientName.equals(flyer.getName())) {
       throw new SecurityException("Recipient's ID doesn't match recipient's name in the system!");
     }

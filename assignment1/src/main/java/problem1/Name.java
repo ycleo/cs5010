@@ -13,15 +13,15 @@ public class Name {
   }
 
   public String getFirstName() {
-    return firstName;
+    return this.firstName;
   }
 
   public String getMiddleName() {
-    return middleName;
+    return this.middleName;
   }
 
   public String getLastName() {
-    return lastName;
+    return this.lastName;
   }
 
   public boolean equals(Name nameCompare) {
@@ -32,9 +32,10 @@ public class Name {
     if (nameCompare == null) {
       return false;
     }
-    String firstNameCompare = nameCompare.firstName;
-    String middleNameCompare = nameCompare.middleName;
-    String lastNameCompare = nameCompare.lastName;
+
+    String firstNameCompare = nameCompare.getFirstName();
+    String middleNameCompare = nameCompare.getMiddleName();
+    String lastNameCompare = nameCompare.getLastName();
 
     return firstNameCompare.equals(this.firstName)
         && middleNameCompare.equals(this.middleName)
