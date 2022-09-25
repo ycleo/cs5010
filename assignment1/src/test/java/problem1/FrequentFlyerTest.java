@@ -39,7 +39,7 @@ public class FrequentFlyerTest {
 
     String expectedMessage = "Account ID must be 12 characters long!";
     String actualMessage = e.getMessage();
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   @Test
@@ -81,7 +81,7 @@ public class FrequentFlyerTest {
     String expectedMessage = "Recipient doesn't exist!";
     String actualMessage = e.getMessage();
 
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   @Test
@@ -95,7 +95,7 @@ public class FrequentFlyerTest {
     String expectedMessage = "Recipient's ID doesn't match recipient's name in the system!";
     String actualMessage = e.getMessage();
 
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   @Test
@@ -108,7 +108,7 @@ public class FrequentFlyerTest {
     String expectedMessage = "Deposit miles amount exceeds giver's available miles amount.";
     String actualMessage = e.getMessage();
 
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   @AfterEach

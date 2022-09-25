@@ -33,21 +33,21 @@ public class NewCarTest {
     testNewCar = new NewCar(Integer.valueOf("2018"), new MakeModel("Gold", "TeslaX"),
         Double.valueOf("5000.0"), Integer.valueOf("30"));
     actualNewCarWithinFiftyMiles = VehicleSystem.getNewCarWithinFiftyMiles();
-    assertEquals(expectedNewCarWithinFiftyMiles.intValue() + 1,
+    assertEquals(expectedNewCarWithinFiftyMiles + 1,
         actualNewCarWithinFiftyMiles.intValue());
   }
 
   @Test
   void setMileage() {
     testNewCarAboveFiftyMiles.setMileage(Integer.valueOf("95"));
-    assertTrue(expectedMileage.equals(testNewCarAboveFiftyMiles.getMileage()));
+    assertEquals(expectedMileage, testNewCarAboveFiftyMiles.getMileage());
   }
 
   @Test
   void setMileageToIncrementNewCarWithinFiftyMiles() {
     testNewCarAboveFiftyMiles.setMileage(Integer.valueOf("50"));
     actualNewCarWithinFiftyMiles = VehicleSystem.getNewCarWithinFiftyMiles();
-    assertEquals(expectedNewCarWithinFiftyMiles.intValue() + 1,
+    assertEquals(expectedNewCarWithinFiftyMiles + 1,
         actualNewCarWithinFiftyMiles.intValue());
   }
 
@@ -55,7 +55,7 @@ public class NewCarTest {
   void setMileageToDecrementNewCarWithinFiftyMiles() {
     testNewCarWithinFiftyMiles.setMileage(Integer.valueOf("51"));
     actualNewCarWithinFiftyMiles = VehicleSystem.getNewCarWithinFiftyMiles();
-    assertEquals(expectedNewCarWithinFiftyMiles.intValue() - 1,
+    assertEquals(expectedNewCarWithinFiftyMiles - 1,
         actualNewCarWithinFiftyMiles.intValue());
   }
 

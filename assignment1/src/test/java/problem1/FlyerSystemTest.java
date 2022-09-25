@@ -58,7 +58,7 @@ public class FlyerSystemTest {
 
     String expectedMessage = "Account ID " + flyerId + " already exists!";
     String actualMessage = e.getMessage();
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   // test flyers database can correctly fetch the flyer based on account ID

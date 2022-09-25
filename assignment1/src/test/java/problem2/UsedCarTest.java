@@ -23,12 +23,12 @@ public class UsedCarTest {
 
   @Test
   void getNumPrevOwner() {
-    assertTrue(expectedNumPrevOwner.equals(testUsedCar.getNumPrevOwner()));
+    assertEquals(expectedNumPrevOwner, testUsedCar.getNumPrevOwner());
   }
 
   @Test
   void getNumMinorAccident() {
-    assertTrue(expectedNumMinorAccident.equals(testUsedCar.getNumMinorAccident()));
+    assertEquals(expectedNumMinorAccident, testUsedCar.getNumMinorAccident());
   }
 
   @Test

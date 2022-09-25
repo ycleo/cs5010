@@ -28,7 +28,7 @@ public class DepositTest {
     });
     String expectedMessage = "Deposit miles amount out of range (1,000 ~ 10,000).";
     String actualMessage = e.getMessage();
-    assertTrue(actualMessage.equals(expectedMessage));
+    assertEquals(actualMessage, expectedMessage);
   }
 
   @Test

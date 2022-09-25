@@ -19,12 +19,12 @@ public class VehicleSystemTest {
   @Test
   void getNewCarWithinFiftyMiles() {
     Integer actualInitialVehicleNum = Integer.valueOf("0");
-    assertTrue(expectedInitialNewCarWithinFiftyMiles.equals(actualInitialVehicleNum));
+    assertEquals(expectedInitialNewCarWithinFiftyMiles, actualInitialVehicleNum);
   }
 
   @Test
   void setNewCarWithinFiftyMiles() {
     VehicleSystem.setNewCarWithinFiftyMiles(Integer.valueOf("20"));
-    assertTrue(expectedNewCarWithinFiftyMiles.equals(VehicleSystem.getNewCarWithinFiftyMiles()));
+    assertEquals(expectedNewCarWithinFiftyMiles, VehicleSystem.getNewCarWithinFiftyMiles());
   }
 }

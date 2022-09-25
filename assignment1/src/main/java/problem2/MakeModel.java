@@ -1,8 +1,8 @@
 package problem2;
 
 public class MakeModel {
-  private String make;
-  private String model;
+  private final String make;
+  private final String model;
   public MakeModel(String make, String model) {
     this.make = make;
     this.model = model;

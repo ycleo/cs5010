@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class VehicleSystem {
 
-  private static HashMap<String, Vehicle> vehicles = new HashMap<String, Vehicle>();
+  private static final HashMap<String, Vehicle> vehicles = new HashMap<String, Vehicle>();
   private static Integer newCarWithinFiftyMiles = 0;
 
   public static Integer getNewCarWithinFiftyMiles() {

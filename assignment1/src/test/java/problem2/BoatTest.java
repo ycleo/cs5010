@@ -24,17 +24,17 @@ public class BoatTest {
 
   @Test
   void getLength() {
-    assertTrue(expectedLength.equals(testBoat.getLength()));
+    assertEquals(expectedLength, testBoat.getLength());
   }
 
   @Test
   void getNumPassenger() {
-    assertTrue(expectedNumPassenger.equals(testBoat.getNumPassenger()));
+    assertEquals(expectedNumPassenger, testBoat.getNumPassenger());
   }
 
   @Test
   void getPropulsionType() {
-    assertTrue(expectedPropulsionType.equals(testBoat.getPropulsionType()));
+    assertEquals(expectedPropulsionType, testBoat.getPropulsionType());
   }
 
 }

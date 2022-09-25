@@ -25,6 +25,6 @@ public class CarTest {
   @Test
   void setMileage() {
     testCar.setMileage(Integer.valueOf("9000"));
-    assertTrue(testCar.getMileage().equals(Integer.valueOf("9000")));
+    assertEquals(testCar.getMileage(), Integer.valueOf("9000"));
   }
 }

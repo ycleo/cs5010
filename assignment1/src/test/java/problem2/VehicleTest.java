@@ -22,7 +22,7 @@ public class VehicleTest {
 
   @Test
   void getId() {
-    assertTrue(expectedId.equals(testVehicle.getId()));
+    assertEquals(expectedId, testVehicle.getId());
   }
 
   @Test
