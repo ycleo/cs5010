@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 public class HouseExpenseTest {
+
   private Double expectedMortgageInterestPaid;
   private Double expectedPropertyTaxPaid;
   private HouseExpense testHouseExpense;
@@ -15,6 +17,7 @@ public class HouseExpenseTest {
     expectedPropertyTaxPaid = 0.0;
     testHouseExpense = new HouseExpense(5600.32, 0.0);
   }
+
   @Test
   void getMortgageInterestPaid() {
     assertEquals(expectedMortgageInterestPaid, testHouseExpense.getMortgageInterestPaid());

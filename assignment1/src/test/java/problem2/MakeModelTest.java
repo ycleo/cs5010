@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import problem1.Name;
 
 public class MakeModelTest {
+
   private MakeModel testMakeModel;
   private String expectedMake;
   private String expectedModel;
@@ -39,6 +40,7 @@ public class MakeModelTest {
   void equalsGetNullObject() {
     assertFalse(testMakeModel.equals(null));
   }
+
   @Test
   void equalsGetSameName() {
     MakeModel testMakeModel1 = new MakeModel("Gold", "TeslaX");

@@ -30,7 +30,8 @@ public class TaxMitigateExpenseTest {
     Savings actualSavings = testTaxMitigateExpense.getSavings();
     Double actualRetireSavings = actualSavings.getRetireSavings();
     Double actualHealthSavings = actualSavings.getHealthSavings();
-    assertTrue(expectedSavings.getRetireSavings().equals(actualRetireSavings) && expectedSavings.getHealthSavings().equals(actualHealthSavings));
+    assertTrue(expectedSavings.getRetireSavings().equals(actualRetireSavings)
+        && expectedSavings.getHealthSavings().equals(actualHealthSavings));
   }
 
   @Test
@@ -38,7 +39,8 @@ public class TaxMitigateExpenseTest {
     HouseExpense actualHouseExpense = testTaxMitigateExpense.getHouseExpense();
     Double actualMortgageInterestPaid = actualHouseExpense.getMortgageInterestPaid();
     Double actualPropertyTaxPaid = actualHouseExpense.getPropertyTaxPaid();
-    assertTrue(expectedHouseExpense.getMortgageInterestPaid().equals(actualMortgageInterestPaid) && expectedHouseExpense.getPropertyTaxPaid().equals(actualPropertyTaxPaid));
+    assertTrue(expectedHouseExpense.getMortgageInterestPaid().equals(actualMortgageInterestPaid)
+        && expectedHouseExpense.getPropertyTaxPaid().equals(actualPropertyTaxPaid));
   }
 
   @Test
@@ -46,7 +48,8 @@ public class TaxMitigateExpenseTest {
     DependentExpense actualDependentExpense = testTaxMitigateExpense.getDependentExpense();
     Double actualChildCareExpense = actualDependentExpense.getChildCareExpense();
     Double actualDependentCareExpense = actualDependentExpense.getDependentCareExpense();
-    assertTrue(expectedDependentExpense.getChildCareExpense().equals(actualChildCareExpense) && expectedDependentExpense.getDependentCareExpense().equals(actualDependentCareExpense));
+    assertTrue(expectedDependentExpense.getChildCareExpense().equals(actualChildCareExpense)
+        && expectedDependentExpense.getDependentCareExpense().equals(actualDependentCareExpense));
   }
 
   @Test

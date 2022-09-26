@@ -34,8 +34,10 @@ public class GroupFilerTest {
 
   @Test
   void constructorException() {
-    Exception e = assertThrows(IllegalArgumentException.class, () -> { new GroupFiler(testContactInfo, 90000.0, 800.0, testTaxMitigateExpense,
-        individualFilerType, expectedDependentInfo); });
+    Exception e = assertThrows(IllegalArgumentException.class, () -> {
+      new GroupFiler(testContactInfo, 90000.0, 800.0, testTaxMitigateExpense,
+          individualFilerType, expectedDependentInfo);
+    });
 
     String expectedMessage = "Employee belongs to individual tax filer, not group tax filer.";
     String actualMessage = e.getMessage();
@@ -70,8 +72,10 @@ public class GroupFilerTest {
 
   @Test
   void calculateTaxes() {
-    Double expectedTaxes = testBasicTaxableIncome - 17500.0 - testGroupFiler.calculateHouseExpenseDeduction() - 1250.0;
-    expectedTaxes = (expectedTaxes.compareTo(90000.0) > 0) ? expectedTaxes * 0.185 : expectedTaxes * 0.145;
+    Double expectedTaxes =
+        testBasicTaxableIncome - 17500.0 - testGroupFiler.calculateHouseExpenseDeduction() - 1250.0;
+    expectedTaxes =
+        (expectedTaxes.compareTo(90000.0) > 0) ? expectedTaxes * 0.185 : expectedTaxes * 0.145;
     Double actualTaxes = testGroupFiler.calculateTaxes();
 
     assertEquals(expectedTaxes, actualTaxes);

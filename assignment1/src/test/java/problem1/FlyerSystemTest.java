@@ -80,14 +80,3 @@ public class FlyerSystemTest {
     flyersMap.clear();
   }
 }
-
-//  // test new account ID characters within unicode range
-//  @Test
-//  void testNewAccountIdUnicodeRange() {
-//    String newAccountId = FlyersDatabase.newAccountId();
-//
-//    for (int i = 0; i < 12; i++) {
-//      int cp = newAccountId.codePointAt(i);
-//      assertTrue(cp >= 48 && cp < 123);
-//    }
-//  }

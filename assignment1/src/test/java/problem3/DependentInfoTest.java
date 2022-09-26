@@ -26,14 +26,17 @@ public class DependentInfoTest {
   void getNumDependents() {
     assertEquals(expectedNumDependents, testDependentInfo.getNumDependents());
   }
+
   @Test
   void getNumMinorChildren() {
     assertEquals(expectedNumMinorChildren, testDependentInfo.getNumMinorChildren());
   }
+
   @Test
   void getChildcareExpense() {
     assertEquals(expectedChildcareExpense, testDependentInfo.getChildcareExpense());
   }
+
   @Test
   void getDependentCareExpense() {
     assertEquals(expectedDependentCareExpense, testDependentInfo.getDependentCareExpense());

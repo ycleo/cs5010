@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class NameTest {
+
   private Name testName;
   private String expectedFirstName;
   private String expectedMiddleName;
@@ -45,6 +46,7 @@ public class NameTest {
   void equalsGetNullObject() {
     assertFalse(testName.equals(null));
   }
+
   @Test
   void equalsGetSameName() {
     Name testName1 = new Name("YC", "Leo", "Lee");

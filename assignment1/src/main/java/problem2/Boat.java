@@ -1,8 +1,9 @@
 package problem2;
 
 /**
- * Represents a Boat with its length, passenger number, and propulsion type
+ * Represents a Boat (a subclass of Vessel) with its length, passenger number, and propulsion type
  *
+ * @author Yi-Cheng Lee
  */
 public class Boat extends Vessel {
 
@@ -11,6 +12,7 @@ public class Boat extends Vessel {
   private final PropulsionType propulsionType;
 
   /**
+   * Constructor for class Boat
    *
    * @param manufactureYear the manufacturing year
    * @param makeModel       the make and model
@@ -28,6 +30,8 @@ public class Boat extends Vessel {
   }
 
   /**
+   * gets the boat length
+   *
    * @return the boat length
    */
   public Float getLength() {
@@ -35,6 +39,8 @@ public class Boat extends Vessel {
   }
 
   /**
+   * gets the passenger number
+   *
    * @return the passenger number
    */
   public Integer getNumPassenger() {
@@ -42,6 +48,8 @@ public class Boat extends Vessel {
   }
 
   /**
+   * gets the propulsion type
+   *
    * @return the propulsion type
    */
   public PropulsionType getPropulsionType() {
@@ -49,9 +57,3 @@ public class Boat extends Vessel {
   }
 
 }
-
-//  public static void main(String[] args) {
-//    MakeModel makeModel = new MakeModel("Steel", "Honda");
-//    Boat boat = new Boat(2022, makeModel, 2000.0, 90.8f, 10, PropulsionType.SAIL_POWER);
-//    System.out.println(boat.getPropulsionType());
-//  }

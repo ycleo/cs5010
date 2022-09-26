@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MilesBalanceTest {
+
   private MilesBalance testMilesBalance;
   private int expectedMilesAvailable;
   private int expectedMilesEarnedThisYear;

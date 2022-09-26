@@ -3,17 +3,31 @@ package problem1;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+/**
+ * Represents the Flyer System with a static HashMap as the flyers database
+ *
+ * @author Yi-Cheng Lee
+ */
 public class FlyerSystem {
 
   // Hash map to store <account ID, frequent flyer>
   private static HashMap<String, FrequentFlyer> flyers = new HashMap<String, FrequentFlyer>();
 
-  // check the flyer exists by the accountId
+  /**
+   * checks the flyer exists by the accountId
+   *
+   * @param accountId the flyer's account ID
+   * @return boolean result of the flyer's existence
+   */
   public static boolean flyerExists(String accountId) {
     return flyers.containsKey(accountId);
   }
 
-  // add new registered flyer
+  /**
+   * adds a new registered flyer
+   *
+   * @param flyer new registered flyer
+   */
   public static void addFlyer(FrequentFlyer flyer) {
     String flyerId = flyer.getAccountId();
 
@@ -25,32 +39,22 @@ public class FlyerSystem {
     }
   }
 
-  // get the existing flyer
+  /**
+   * gets the flyer by account ID
+   *
+   * @param accountId the account ID
+   * @return the flyer
+   */
   public static FrequentFlyer getFlyer(String accountId) {
     return flyers.get(accountId);
   }
 
+  /**
+   * removes a certain flyer by the account ID
+   *
+   * @param accountId the account ID
+   */
   public static void removeFlyer(String accountId) {
     flyers.remove(accountId);
   }
 }
-
-//  // generate new account ID
-//  private static String generateAccountId() {
-//    int length = 12;
-//    Random random = new Random();
-//
-//    String accountId = random.ints(48, 123).limit(length)
-//        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-//        .toString();
-//    return accountId;
-//  }
-//
-//  // give the new flyer an ID
-//  public static String newAccountId() {
-//    String newId = "0123456789ab"; // 12-char long
-//    while (accountIdExists(newId)) {
-//      newId = generateAccountId();
-//    }
-//    return newId;
-//  }

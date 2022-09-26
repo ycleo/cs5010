@@ -1,10 +1,26 @@
 package problem3;
 
+/**
+ * Represents a group tax filer with contact information, last year's earnings, Total income tax
+ * already paid, all expenses for tax mitigation, filer type, and dependent information
+ *
+ * @author Yi-Cheng Lee
+ */
 public class GroupFiler extends TaxFiler {
 
   private FilerType filerType;
   private DependentInfo dependentInfo;
 
+  /**
+   * Constructor for class GroupFiler
+   *
+   * @param contactInfo        the contact information
+   * @param lastYearEarnings   the last year's earnings
+   * @param incomeTaxPaid      the total tax income already paid
+   * @param taxMitigateExpense the expenses for tax mitigation
+   * @param filerType          the filer type
+   * @param dependentInfo      the dependent information
+   */
   public GroupFiler(ContactInfo contactInfo, Double lastYearEarnings,
       Double incomeTaxPaid, TaxMitigateExpense taxMitigateExpense, FilerType filerType,
       DependentInfo dependentInfo) {
@@ -17,14 +33,29 @@ public class GroupFiler extends TaxFiler {
     this.dependentInfo = dependentInfo;
   }
 
+  /**
+   * gets the filer type
+   *
+   * @return the filer type
+   */
   public FilerType getFilerType() {
     return this.filerType;
   }
 
+  /**
+   * gets the dependent information
+   *
+   * @return the dependent information
+   */
   public DependentInfo getDependentInfo() {
     return this.dependentInfo;
   }
 
+  /**
+   * Calculates the savings deduction
+   *
+   * @return the savings deduction
+   */
   public Double calculateSavingsDeduction() {
     Savings savings = this.getTaxMitigateExpense().getSavings();
     Double savingsDeduction = (savings.getRetireSavings() + savings.getHealthSavings()) * 0.65;
@@ -32,8 +63,15 @@ public class GroupFiler extends TaxFiler {
       savingsDeduction = 17500.0;
     }
 
-    return (savingsDeduction < this.calculateBasicTaxableIncome()) ? savingsDeduction : Double.valueOf(0.0);
+    return (savingsDeduction < this.calculateBasicTaxableIncome()) ? savingsDeduction
+        : Double.valueOf(0.0);
   }
+
+  /**
+   * Calculates the childcare deduction
+   *
+   * @return the childcare deduction
+   */
   public Double calculateChildcareDeduction() {
     Double childcareDeduction = 0.0;
     Double childcareExpense = this.getDependentInfo().getChildcareExpense();
@@ -44,6 +82,11 @@ public class GroupFiler extends TaxFiler {
     return childcareDeduction;
   }
 
+  /**
+   * Calculates the tax amount
+   *
+   * @return the tax amount
+   */
   public Double calculateTaxes() {
     Double basicTaxableIncome = this.calculateBasicTaxableIncome();
     Double savingsDeduction = this.calculateSavingsDeduction();
