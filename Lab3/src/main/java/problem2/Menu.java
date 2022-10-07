@@ -140,10 +140,10 @@ public class Menu {
   @Override
   public String toString() {
     return "Menu{" +
-        "meals: " + meals +
-        ", desserts: " + desserts +
-        ", beverages: " + beverages +
-        ", drinks: " + drinks +
+        "meals: " + meals.toString() +
+        ", desserts: " + desserts.toString() +
+        ", beverages: " + beverages.toString() +
+        ", drinks: " + drinks.toString() +
         "}";
   }
 }

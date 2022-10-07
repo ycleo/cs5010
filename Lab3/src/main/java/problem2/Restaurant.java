@@ -115,8 +115,8 @@ public class Restaurant {
     }
     Restaurant restaurant = (Restaurant) o;
     return Objects.equals(name, restaurant.getName())
-        && Objects.equals(address, restaurant.getAddress())
-        && Objects.equals(menu, restaurant.getMenu())
+        && address.equals(restaurant.getAddress())
+        && menu.equals(restaurant.getMenu())
         && open == restaurant.isOpen();
   }
 
@@ -127,7 +127,7 @@ public class Restaurant {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(name, address, menu, open);
+    return Objects.hash(name, address.hashCode(), menu.hashCode(), open);
   }
 
   /**
@@ -139,11 +139,12 @@ public class Restaurant {
   public String toString() {
     return "Restaurant{" +
         "name: " + name +
-        ", address: " + address.getStreetAndNumber() + ' ' + address.getCity() + ' '
+        "; address: " + address.getStreetAndNumber() + ' ' + address.getCity() + ' '
         + address.getState() + ' ' + address.getCountry() + ' ' + address.getZIPCode() +
-        ", menu: " + menu.getMeals().toString() + ' ' + menu.getDesserts().toString() + ' '
-        + menu.getBeverages().toString() + ' ' + menu.getDrinks().toString() +
-        ", open: " + open +
+        "; menu: meals: " + menu.getMeals().toString() + ", desserts: " + menu.getDesserts()
+        .toString() + ", beverages: "
+        + menu.getBeverages().toString() + ", drinks: " + menu.getDrinks().toString() +
+        "; open: " + open +
         "}";
   }
 }
