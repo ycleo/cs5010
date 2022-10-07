@@ -124,7 +124,7 @@ public class Address {
   /**
    * Tests two Address objects have the same property values
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

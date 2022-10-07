@@ -145,4 +145,12 @@ public class TestBaseballPlayer {
     String expectedString = "BaseballPlayer{Name=Aaron Judge, height=199.5, weight=200.3, league=MLB, team=Yankees, average batting=0.356, season home runs=66}";
     assertEquals(expectedString, testBaseballPlayer1.toString());
   }
+
+  @Test
+  void testToStringWithoutLeague() {
+    testBaseballPlayer2 = new BaseballPlayer(testName, 199.5, 200.3,
+        "Yankees", 0.356, 66);
+    String expectedString = "BaseballPlayer{Name=Aaron Judge, height=199.5, weight=200.3, league=null, team=Yankees, average batting=0.356, season home runs=66}";
+    assertEquals(expectedString, testBaseballPlayer2.toString());
+  }
 }

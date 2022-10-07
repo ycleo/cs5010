@@ -133,4 +133,11 @@ public class TestRunner {
     String expectedString = "Runner{Name=Iron Man, height=183.2, weight=130.6, league=JBA, best 5K time=25.2, best half-marathon time=90.5, favorite running event=Boston Marathon}";
     assertEquals(expectedString, testRunner1.toString());
   }
+
+  @Test
+  void testToStringWithoutLeague() {
+    testRunner2 = new Runner(testName, 183.2, 130.6, 25.2, 90.5, "Boston Marathon");
+    String expectedString = "Runner{Name=Iron Man, height=183.2, weight=130.6, league=null, best 5K time=25.2, best half-marathon time=90.5, favorite running event=Boston Marathon}";
+    assertEquals(expectedString, testRunner2.toString());
+  }
 }

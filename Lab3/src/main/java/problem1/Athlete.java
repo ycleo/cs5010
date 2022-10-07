@@ -83,7 +83,7 @@ public class Athlete {
   /**
    * Test two Athlete objects have the same property values
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

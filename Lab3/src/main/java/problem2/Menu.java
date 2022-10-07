@@ -104,7 +104,7 @@ public class Menu {
   /**
    * Tests two Menu objects have the same property values
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

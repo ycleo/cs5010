@@ -42,7 +42,7 @@ public class Name {
   /**
    * Test two Name objects have same first name and last name
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

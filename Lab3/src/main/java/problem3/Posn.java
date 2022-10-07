@@ -8,6 +8,12 @@ public class Posn {
   private Integer x;
   private Integer y;
 
+  /**
+   * Constructs Posn object by x and y
+   *
+   * @param x Integer x
+   * @param y Integer y
+   */
   public Posn(Integer x, Integer y) {
     this.x = x;
     this.y = y;

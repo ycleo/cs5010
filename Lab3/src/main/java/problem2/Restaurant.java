@@ -102,7 +102,7 @@ public class Restaurant {
   /**
    * Tests two Restaurant objects have the same property values
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

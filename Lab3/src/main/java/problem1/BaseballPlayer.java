@@ -79,7 +79,7 @@ public class BaseballPlayer extends Athlete {
   /**
    * Test two BaseballPlayer objects have the same property values
    *
-   * @param o
+   * @param o tested object
    * @return boolean
    */
   @Override

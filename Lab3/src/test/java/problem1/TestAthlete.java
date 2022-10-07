@@ -99,4 +99,11 @@ public class TestAthlete {
     assertEquals(expectedString, testAthlete.toString());
   }
 
+  @Test
+  void testToStringWithoutLeague() {
+    testAthlete2 = new Athlete(new Name("Mike", "Jordan"), 193.5, 250.2);
+    String expectedString = "Athlete{name=Mike Jordan, height=193.5, weight=250.2, league=null}";
+    assertEquals(expectedString, testAthlete2.toString());
+  }
+
 }
