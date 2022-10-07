@@ -6,10 +6,6 @@ import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test class for class Name. Note: this class contains an example of how to test methods equals()
- * and hashCode().
- */
 class TestName {
 
   private Name testName;
