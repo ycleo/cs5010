@@ -1,6 +1,6 @@
 package problem1;
 
-public abstract class AbstractProduct implements Product{
+public abstract class AbstractProduct implements Product {
 
   final private String manufacturer;
   final private String name;

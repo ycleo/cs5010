@@ -1,6 +1,7 @@
 package problem1;
 
 public class Customer {
+
   private final int DEFAULT_ADD_PRODUCT_QUANTITY = 1;
   private String name;
   private int age;
@@ -12,10 +13,6 @@ public class Customer {
     this.shoppingCart = new ShoppingCart();
   }
 
-  public String getName() {
-    return this.name;
-  }
-
   public int getAge() {
     return this.age;
   }
@@ -24,22 +21,15 @@ public class Customer {
     return this.shoppingCart;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-  public void addProduct(Inventory inventory, StockItem stockItem, int quantity){
+  public void addProduct(Inventory inventory, StockItem stockItem, int quantity) {
     Product product = stockItem.getProduct();
     try {
-      if(quantity > stockItem.getQuantity()) {
-        throw new ProductNotEnoughError("The quantity you order is over our stock.");
+      if (quantity > stockItem.getQuantity()) {
+        throw new ProductStockNotEnoughError("Warning: The product is out of stock.");
       } else {
         this.getShoppingCart().addItem(product, quantity);
       }
-    } catch (ProductNotEnoughError e) {
+    } catch (ProductStockNotEnoughError e) {
       System.out.println(e.getMessage());
     }
   }
@@ -50,8 +40,13 @@ public class Customer {
 
   public Receipt submitShoppingCart(Inventory inventory) {
     Receipt receipt = new Receipt();
-    inventory.checkShoppingCart(this, this.getShoppingCart(), receipt);
-    inventory.finalProcess(this, this.getShoppingCart(), receipt);
+    ShoppingCart shoppingCart = this.getShoppingCart();
+
+    inventory.checkAndSubstituteProduct(shoppingCart, receipt);
+    inventory.finalCheckingProcess(this.getAge(), shoppingCart, receipt);
+    receipt.setTotalPricePaid(shoppingCart.totalCost());
+    shoppingCart.clearShoppingCart();
+
     return receipt;
   }
 }

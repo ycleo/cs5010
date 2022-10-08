@@ -22,7 +22,7 @@ public class StockItem {
     this.quantity = quantity;
   }
 
-  public boolean isEnoughForPurchase(int quantity) {
+  public boolean quantityEnoughForPurchase(int quantity) {
     return this.getQuantity() >= quantity;
   }
 }

@@ -14,7 +14,7 @@ public class Inventory {
     this.households = new ArrayList<>();
   }
 
-  public void add(StockItem stockItem) {
+  public void addStockItem(StockItem stockItem) {
     if (stockItem.getProduct() instanceof Grocery) {
       this.groceries.add(stockItem);
     } else if (stockItem.getProduct() instanceof Household) {
@@ -52,7 +52,7 @@ public class Inventory {
     return stockItem;
   }
 
-  public void checkShoppingCart(Customer customer, ShoppingCart shoppingCart, Receipt receipt) {
+  public void checkAndSubstituteProduct(ShoppingCart shoppingCart, Receipt receipt) {
     Map<Product, Integer> shoppingItems = shoppingCart.getShoppingItems();
 
     // check through the shopping items
@@ -62,6 +62,7 @@ public class Inventory {
 
       // product out of stock -> substitution
       if (quantityPurchased < this.getStockItem(productPurchased).getQuantity()) {
+        // remove the product from the shopping cart
         shoppingCart.removeItem(productPurchased);
         boolean substituted = false;
 
@@ -120,12 +121,11 @@ public class Inventory {
     Product targetProduct = targetStockItem.getProduct();
 
     return targetProduct.getClass().equals(productPurchased.getClass())
-        && targetStockItem.isEnoughForPurchase(quantityPurchased)
+        && targetStockItem.quantityEnoughForPurchase(quantityPurchased)
         && targetProduct.getPrice() <= productPurchased.getPrice();
   }
 
-  public void finalProcess(Customer customer, ShoppingCart shoppingCart, Receipt receipt) {
-    double totalPricePaid = 0.0;
+  public void finalCheckingProcess(int customersAge, ShoppingCart shoppingCart, Receipt receipt) {
     Map<Product, Integer> shoppingItems = shoppingCart.getShoppingItems();
 
     // check through the shopping items
@@ -134,64 +134,16 @@ public class Inventory {
       int quantityPurchased = entry.getValue();
 
       // check customer's age is qualified
-      if (customer.getAge() < productPurchased.getMinAgeToBuy()) {
+      if (customersAge < productPurchased.getMinAgeToBuy()) {
+        // record age-disqualified product on the receipt
         receipt.getProductsRemovedDueToAge().add(productPurchased);
       } else {
         StockItem stockItem = this.getStockItem(productPurchased);
         // update stock quantity
         stockItem.setQuantity(stockItem.getQuantity() - quantityPurchased);
-        // update receipt and increment total price
+        // add product to the receipt
         receipt.getProductsReceived().add(productPurchased);
-        totalPricePaid += productPurchased.getPrice();
       }
-
-      // remove product from the shopping cart
-      shoppingItems.remove(productPurchased);
     }
-
-    receipt.setTotalPricePaid(totalPricePaid);
   }
-
 }
-
-//  public Product findAvailableItem(HashSet<Product> inventory, Product item) {
-//    StockItem availableItem = null;
-//    Iterator<StockItem> iter = inventory.iterator();
-//
-//    while (iter.hasNext()) {
-//      if (iter.next().getProduct().getProductType() == item.getProduct().getProductType() &&
-//          iter.next().getQuantity() > 0 &&
-//          iter.next().getProduct().getPrice() <= item.getProduct().getPrice()) {
-//        availableItem = iter.next();
-//        break;
-//      }
-//    }
-//
-//    return availableItem;
-//  }
-
-
-
-
-
-
-
-//  public void remove(StockItem stockItem) {
-//    if (stockItem.getProduct() instanceof Grocery) {
-//      this.groceries.remove(stockItem.getProduct());
-//    }
-//    else if (stockItem.getProduct() instanceof Household) {
-//      this.households.remove(stockItem.getProduct());
-//    }
-//  }
-
-//  public boolean contains(StockItem stockItem) {
-//    boolean productExists = false;
-//    if (stockItem.getProduct() instanceof Grocery) {
-//      productExists = this.groceries.contains(stockItem);
-//    }
-//    else if (stockItem.getProduct() instanceof Household) {
-//      productExists = this.households.contains(stockItem);
-//    }
-//    return productExists;
-//  }

@@ -29,7 +29,7 @@ public class ShoppingCart {
 
   public double totalCost() {
     double totalCost = 0.0;
-    for(Map.Entry<Product, Integer> entry : this.shoppingItems.entrySet()) {
+    for (Map.Entry<Product, Integer> entry : this.shoppingItems.entrySet()) {
       double productPrice = entry.getKey().getPrice();
       Integer quantity = entry.getValue();
       totalCost += productPrice * quantity;

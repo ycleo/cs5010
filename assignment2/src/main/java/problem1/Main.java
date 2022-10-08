@@ -9,7 +9,7 @@ public class Main {
     System.out.println(sa instanceof AbstractProduct);
 
     Inventory inv = new Inventory();
-    inv.add(saStock);
+    inv.addStockItem(saStock);
     Customer c = new Customer("allen", 5);
 
     c.addProduct(inv, saStock, 900);
