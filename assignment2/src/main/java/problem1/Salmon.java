@@ -10,13 +10,7 @@ public class Salmon extends Grocery {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
-    return super.equals(o);
+    return (o instanceof Salmon) && super.equals(o);
   }
 
   @Override

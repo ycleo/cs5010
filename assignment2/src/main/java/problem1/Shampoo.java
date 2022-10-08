@@ -10,13 +10,7 @@ public class Shampoo extends Household {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
-    return super.equals(o);
+    return (o instanceof Shampoo) && super.equals(o);
   }
 
   @Override

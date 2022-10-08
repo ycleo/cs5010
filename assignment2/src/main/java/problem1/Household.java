@@ -17,17 +17,11 @@ public abstract class Household extends AbstractProduct {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Household) {
+      Household household = (Household) o;
+      return super.equals(o) && Objects.equals(this.getUnit(), household.getUnit());
     }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
-    }
-    Household grocery = (Household) o;
-    return Objects.equals(this.getUnit(), grocery.getUnit());
+    return false;
   }
 
   @Override

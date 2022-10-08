@@ -22,17 +22,11 @@ public abstract class Grocery extends AbstractProduct {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    if (o instanceof Grocery) {
+      Grocery grocery = (Grocery) o;
+      return super.equals(o) && Objects.equals(this.getWeight(), grocery.getWeight());
     }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
-    if (!super.equals(o)) {
-      return false;
-    }
-    Grocery grocery = (Grocery) o;
-    return Objects.equals(this.getWeight(), grocery.getWeight());
+    return false;
   }
 
   @Override
