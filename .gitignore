@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+*.html
 
 # Log file
 *.log
@@ -30,3 +31,4 @@ build/
 .idea/
 
 .DS_Store
+
