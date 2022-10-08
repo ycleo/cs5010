@@ -9,4 +9,13 @@ public interface Product {
   double getPrice();
 
   int getMinAgeToBuy();
+
+  @Override
+  boolean equals(Object o);
+
+  @Override
+  int hashCode();
+
+  @Override
+  String toString();
 }

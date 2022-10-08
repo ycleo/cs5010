@@ -3,6 +3,7 @@ package problem1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Inventory {
 
@@ -145,5 +146,31 @@ public class Inventory {
         receipt.getProductsReceived().add(productPurchased);
       }
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+    Inventory inventory = (Inventory) o;
+    return Objects.equals(this.groceries, inventory.groceries)
+        && Objects.equals(this.households, inventory.households);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.groceries, this.households);
+  }
+
+  @Override
+  public String toString() {
+    return "Inventory{" +
+        "Groceries list: " + this.groceries.toString() +
+        "; Households list: " + this.households.toString() +
+        '}';
   }
 }

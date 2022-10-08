@@ -2,6 +2,7 @@ package problem1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ShoppingCart {
 
@@ -35,5 +36,27 @@ public class ShoppingCart {
       totalCost += productPrice * quantity;
     }
     return totalCost;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+    ShoppingCart shoppingCart = (ShoppingCart) o;
+    return Objects.equals(this.getShoppingItems(), shoppingCart.getShoppingItems());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getShoppingItems());
+  }
+
+  @Override
+  public String toString() {
+    return "ShoppingCart{" + "Shopping Items: " + this.getShoppingItems().toString() + '}';
   }
 }
