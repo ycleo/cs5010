@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestShampoo {
+
   private String expectedManufacturer;
   private String expectedName;
 
@@ -32,8 +33,10 @@ public class TestShampoo {
     expectedUnit = 9;
 
     testUnit = 20;
-    testShampoo = new Shampoo(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, expectedUnit);
-    testShampoo1 = new Shampoo(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, testUnit);
+    testShampoo = new Shampoo(expectedManufacturer, expectedName, expectedPrice,
+        expectedMinAgeToBuy, expectedUnit);
+    testShampoo1 = new Shampoo(expectedManufacturer, expectedName, expectedPrice,
+        expectedMinAgeToBuy, testUnit);
     expectedString = "Shampoo{Manufacturer: Clean Clean; Product Name: max; Price: 12.2; Minimum Age To Buy: 10; Units Per Package: 9}";
   }
 
@@ -51,15 +54,19 @@ public class TestShampoo {
   void testEquals_NotPassSuperClassEquals() {
     assertFalse(testShampoo.equals(testShampoo1));
   }
+
   @Test
   void testEquals_SameShampoo() {
-    testShampoo1 = new Shampoo(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, expectedUnit);
+    testShampoo1 = new Shampoo(expectedManufacturer, expectedName, expectedPrice,
+        expectedMinAgeToBuy, expectedUnit);
     assertTrue(testShampoo.equals(testShampoo1));
   }
 
   @Test
   void testHashCode() {
-    int expectedHashCode = Objects.hash(Objects.hash(Objects.hash(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy), expectedUnit));
+    int expectedHashCode = Objects.hash(Objects.hash(
+        Objects.hash(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy),
+        expectedUnit));
     assertEquals(expectedHashCode, testShampoo.hashCode());
   }
 

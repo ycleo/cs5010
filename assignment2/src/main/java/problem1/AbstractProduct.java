@@ -53,14 +53,4 @@ public abstract class AbstractProduct implements Product {
         this.getMinAgeToBuy());
   }
 
-  @Override
-  public String toString() {
-    return "Product{" +
-        "Manufacturer: " + this.getManufacturer() +
-        "; Product Name: " + this.getName() +
-        "; Price: " + this.getPrice() +
-        "; Minimum Age To Buy: " + this.getMinAgeToBuy() +
-        '}';
-  }
-
 }

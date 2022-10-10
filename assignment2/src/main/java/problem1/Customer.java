@@ -15,6 +15,10 @@ public class Customer {
     this.shoppingCart = new ShoppingCart();
   }
 
+  public String getName() {
+    return this.name;
+  }
+
   public int getAge() {
     return this.age;
   }
@@ -45,7 +49,7 @@ public class Customer {
     ShoppingCart shoppingCart = this.getShoppingCart();
 
     inventory.checkAndSubstituteProduct(shoppingCart, receipt);
-    inventory.finalCheckingProcess(this.getAge(), shoppingCart, receipt);
+    inventory.ageCheckingAndStockQuantityUpdate(this.getAge(), shoppingCart, receipt);
     receipt.setTotalPricePaid(shoppingCart.totalCost());
     shoppingCart.clearShoppingCart();
 

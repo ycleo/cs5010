@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestAbstractProduct {
+
   private String expectedManufacturer;
   private String testManufacturer;
   private String expectedName;
@@ -28,7 +29,8 @@ public class TestAbstractProduct {
     expectedPrice = 3000.99;
     expectedMinAgeToBuy = 15;
     expectedWeight = 90.5;
-    testProduct = new Salmon(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, expectedWeight);
+    testProduct = new Salmon(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy,
+        expectedWeight);
 
     testManufacturer = "cool salmon";
     testName = "proud salmon";
@@ -73,41 +75,45 @@ public class TestAbstractProduct {
 
   @Test
   void testEquals_DifferentManufacturer() {
-    testProduct1 = new Salmon(testManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, expectedWeight);
+    testProduct1 = new Salmon(testManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy,
+        expectedWeight);
     assertFalse(testProduct.equals(testProduct1));
   }
 
   @Test
   void testEquals_DifferentName() {
-    testProduct1 = new Salmon(expectedManufacturer, testName, expectedPrice, expectedMinAgeToBuy, expectedWeight);
+    testProduct1 = new Salmon(expectedManufacturer, testName, expectedPrice, expectedMinAgeToBuy,
+        expectedWeight);
     assertFalse(testProduct.equals(testProduct1));
   }
 
   @Test
   void testEquals_DifferentPrice() {
-    testProduct1 = new Salmon(expectedManufacturer, expectedName, testPrice, expectedMinAgeToBuy, expectedWeight);
+    testProduct1 = new Salmon(expectedManufacturer, expectedName, testPrice, expectedMinAgeToBuy,
+        expectedWeight);
     assertFalse(testProduct.equals(testProduct1));
   }
+
   @Test
   void testEquals_DifferentMinAgeToBuy() {
-    testProduct1 = new Salmon(expectedManufacturer, expectedName, expectedPrice, testMinAgeToBuy, expectedWeight);
+    testProduct1 = new Salmon(expectedManufacturer, expectedName, expectedPrice, testMinAgeToBuy,
+        expectedWeight);
     assertFalse(testProduct.equals(testProduct1));
   }
+
   @Test
   void testEquals_SameProduct() {
-    testProduct1 = new Salmon(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy, expectedWeight);
+    testProduct1 = new Salmon(expectedManufacturer, expectedName, expectedPrice,
+        expectedMinAgeToBuy, expectedWeight);
     assertTrue(testProduct.equals(testProduct1));
   }
 
-//  @Test
-//  void testHashCode() {
-//    int expectedHashCode = Objects.hash(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy);
-//    assertEquals(expectedHashCode, (AbstractProduct)testProduct.hashCode());
-//  }
+  @Test
+  void testHashCode() {
+    int expectedHashCode = Objects.hash(Objects.hash(
+        Objects.hash(expectedManufacturer, expectedName, expectedPrice, expectedMinAgeToBuy),
+        expectedWeight));
+    assertEquals(expectedHashCode, testProduct.hashCode());
+  }
 
-//  @Test
-//  void testToString() {
-//    String expectedString = "Product{Manufacturer: number one salmon; Product Name: oh my salmon; Price: 3000.99; Minimum Age To Buy: 15}";
-//    assertEquals(expectedString, testProduct.toString());
-//  }
 }

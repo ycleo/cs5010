@@ -57,6 +57,6 @@ public class ShoppingCart {
 
   @Override
   public String toString() {
-    return "ShoppingCart{" + "Shopping Items: " + this.getShoppingItems().toString() + '}';
+    return "ShoppingCart{Shopping Items: " + this.getShoppingItems().toString() + '}';
   }
 }

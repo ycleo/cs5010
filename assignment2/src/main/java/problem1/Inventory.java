@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class Inventory {
 
+  private final static double ZERO_VALUE_DOUBLE = 0.0;
+  private final static int ZERO_VALUE_INT = 0;
   private List<StockItem> groceries;
   private List<StockItem> households;
 
@@ -24,14 +26,14 @@ public class Inventory {
   }
 
   public double getTotalRetailValue() {
-    double totalRetailValue = 0.0;
-    for (int i = 0; i < this.groceries.size(); i++) {
+    double totalRetailValue = ZERO_VALUE_DOUBLE;
+    for (int i = ZERO_VALUE_INT; i < this.groceries.size(); i++) {
       StockItem stockGrocery = this.groceries.get(i);
       double groceryPrice = stockGrocery.getProduct().getPrice();
       int groceryQuantity = stockGrocery.getQuantity();
       totalRetailValue += groceryPrice * groceryQuantity;
     }
-    for (int i = 0; i < this.households.size(); i++) {
+    for (int i = ZERO_VALUE_INT; i < this.households.size(); i++) {
       StockItem stockHousehold = this.households.get(i);
       double householdPrice = stockHousehold.getProduct().getPrice();
       int householdQuantity = stockHousehold.getQuantity();
@@ -41,10 +43,10 @@ public class Inventory {
   }
 
   public StockItem getStockItem(Product product) {
-    StockItem stockItem = new StockItem(null, 0);
+    StockItem stockItem = new StockItem(null, ZERO_VALUE_INT);
     List<StockItem> searchingList = product instanceof Grocery ? this.groceries : this.households;
 
-    for (int i = 0; i < searchingList.size(); i++) {
+    for (int i = ZERO_VALUE_INT; i < searchingList.size(); i++) {
       if (searchingList.get(i).getProduct() == product) {
         stockItem = searchingList.get(i);
         break;
@@ -52,6 +54,50 @@ public class Inventory {
     }
     return stockItem;
   }
+
+  private boolean passedGeneralSubstitutionRule(Product productPurchased, int quantityPurchased,
+      StockItem targetStockItem) {
+    Product targetProduct = targetStockItem.getProduct();
+
+    return targetProduct.getClass().equals(productPurchased.getClass())
+        && targetStockItem.quantityEnoughForPurchase(quantityPurchased)
+        && targetProduct.getPrice() <= productPurchased.getPrice();
+  }
+
+  private boolean substituteGrocery(Grocery productPurchased, int quantityPurchased,
+      ShoppingCart shoppingCart) {
+    boolean substituted = false;
+    for (int i = 0; i < this.groceries.size(); i++) {
+      StockItem targetStockItem = this.groceries.get(i);
+      Grocery targetProduct = (Grocery) targetStockItem.getProduct();
+
+      if (this.passedGeneralSubstitutionRule(productPurchased, quantityPurchased, targetStockItem)
+          && targetProduct.getWeight() >= productPurchased.getWeight()) {
+        shoppingCart.addItem(targetProduct, quantityPurchased);
+        substituted = true;
+        break;
+      }
+    }
+    return substituted;
+  }
+
+  private boolean substituteHousehold(Household productPurchased, int quantityPurchased,
+      ShoppingCart shoppingCart) {
+    boolean substituted = false;
+    for (int i = 0; i < this.households.size(); i++) {
+      StockItem targetStockItem = this.households.get(i);
+      Household targetProduct = (Household) targetStockItem.getProduct();
+
+      if (this.passedGeneralSubstitutionRule(productPurchased, quantityPurchased, targetStockItem)
+          && targetProduct.getUnit() >= productPurchased.getUnit()) {
+        shoppingCart.addItem(targetProduct, quantityPurchased);
+        substituted = true;
+        break;
+      }
+    }
+    return substituted;
+  }
+
 
   public void checkAndSubstituteProduct(ShoppingCart shoppingCart, Receipt receipt) {
     Map<Product, Integer> shoppingItems = shoppingCart.getShoppingItems();
@@ -62,7 +108,7 @@ public class Inventory {
       int quantityPurchased = entry.getValue();
 
       // product out of stock -> substitution
-      if (quantityPurchased < this.getStockItem(productPurchased).getQuantity()) {
+      if (quantityPurchased > this.getStockItem(productPurchased).getQuantity()) {
         // remove the product from the shopping cart
         shoppingCart.removeItem(productPurchased);
         boolean substituted = false;
@@ -83,50 +129,8 @@ public class Inventory {
     }
   }
 
-  public boolean substituteGrocery(Grocery productPurchased, int quantityPurchased,
-      ShoppingCart shoppingCart) {
-    boolean substituted = false;
-    for (int i = 0; i < this.groceries.size(); i++) {
-      StockItem targetStockItem = this.groceries.get(i);
-      Grocery targetProduct = (Grocery) targetStockItem.getProduct();
-
-      if (this.passedGeneralSubstitutionRule(productPurchased, quantityPurchased, targetStockItem)
-          && targetProduct.getWeight() >= productPurchased.getWeight()) {
-        shoppingCart.addItem(targetProduct, quantityPurchased);
-        substituted = true;
-        break;
-      }
-    }
-    return substituted;
-  }
-
-  public boolean substituteHousehold(Household productPurchased, int quantityPurchased,
-      ShoppingCart shoppingCart) {
-    boolean substituted = false;
-    for (int i = 0; i < this.households.size(); i++) {
-      StockItem targetStockItem = this.households.get(i);
-      Household targetProduct = (Household) targetStockItem.getProduct();
-
-      if (this.passedGeneralSubstitutionRule(productPurchased, quantityPurchased, targetStockItem)
-          && targetProduct.getUnit() >= productPurchased.getUnit()) {
-        shoppingCart.addItem(targetProduct, quantityPurchased);
-        substituted = true;
-        break;
-      }
-    }
-    return substituted;
-  }
-
-  public boolean passedGeneralSubstitutionRule(Product productPurchased, int quantityPurchased,
-      StockItem targetStockItem) {
-    Product targetProduct = targetStockItem.getProduct();
-
-    return targetProduct.getClass().equals(productPurchased.getClass())
-        && targetStockItem.quantityEnoughForPurchase(quantityPurchased)
-        && targetProduct.getPrice() <= productPurchased.getPrice();
-  }
-
-  public void finalCheckingProcess(int customersAge, ShoppingCart shoppingCart, Receipt receipt) {
+  public void ageCheckingAndStockQuantityUpdate(int customersAge, ShoppingCart shoppingCart,
+      Receipt receipt) {
     Map<Product, Integer> shoppingItems = shoppingCart.getShoppingItems();
 
     // check through the shopping items

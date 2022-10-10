@@ -28,15 +28,4 @@ public abstract class Household extends AbstractProduct {
   public int hashCode() {
     return Objects.hash(super.hashCode(), this.getUnit());
   }
-
-  @Override
-  public String toString() {
-    return "Household{" +
-        "Manufacturer: " + this.getManufacturer() +
-        "; Product Name: " + this.getName() +
-        "; Price: " + this.getPrice() +
-        "; Minimum Age To Buy: " + this.getMinAgeToBuy() +
-        "; Units Per Package: " + this.getUnit() +
-        '}';
-  }
 }

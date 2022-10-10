@@ -34,14 +34,4 @@ public abstract class Grocery extends AbstractProduct {
     return Objects.hash(super.hashCode(), this.getWeight());
   }
 
-  @Override
-  public String toString() {
-    return "Grocery{" +
-        "Manufacturer: " + this.getManufacturer() +
-        "; Product Name: " + this.getName() +
-        "; Price: " + this.getPrice() +
-        "; Minimum Age To Buy: " + this.getMinAgeToBuy() +
-        "; Weight: " + this.getWeight() +
-        '}';
-  }
 }
