@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class testStockItem {
+public class TestStockItem {
 
   private Product expectedProduct;
   private int expectedQuantity;
