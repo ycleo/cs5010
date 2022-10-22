@@ -1,4 +1,4 @@
-package lab4;
+package lab4.problem1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class QueueTest {
+
   private ArrayDeque<Integer> testQueue;
   private Integer expectedItem;
 
@@ -20,7 +21,7 @@ public class QueueTest {
   @Test
   void enqueue() {
     testQueue.addLast(expectedItem);
-    assertEquals(expectedItem, testQueue.peekLast());
+    assertEquals(expectedItem, testQueue.peek());
   }
 
   @Test

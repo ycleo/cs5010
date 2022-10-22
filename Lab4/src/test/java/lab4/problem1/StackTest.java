@@ -1,4 +1,5 @@
-package lab4;
+package lab4.problem1;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -6,6 +7,7 @@ import java.util.Stack;
 import org.junit.jupiter.api.Test;
 
 public class StackTest {
+
   private Stack<Integer> testStack;
   private Integer item1;
   private Integer item2;
