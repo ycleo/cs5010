@@ -14,6 +14,9 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Message generator can generate different messages based on the template
+ */
 public class MessageGenerator {
 
   final private static String DOUBLE_LEFT_BRACKET_REGEX = "\\[\\[";
@@ -22,6 +25,15 @@ public class MessageGenerator {
   final private static String LETTER_OUTPUT = "/letters-output/letter-to-";
   final private static String TXT = ".txt";
 
+  /**
+   * The function that can generate messages based on the template type
+   *
+   * @param templateCommand The command operation specify the template type
+   * @param infoType        The information type listed in the CSV file
+   * @param customersIno    Every customer's information listed in the CSV file
+   * @param arguments       A hash map contains the operations mapped to their arguments
+   * @throws IOException Related to the Path access operations
+   */
   public static void generateMessage(String templateCommand, String[] infoType,
       List<List<String>> customersIno, HashMap<String, String> arguments)
       throws IOException {

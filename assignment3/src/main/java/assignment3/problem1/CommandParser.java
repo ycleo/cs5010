@@ -9,6 +9,9 @@ import static assignment3.problem1.Main.ZERO;
 
 import java.util.HashMap;
 
+/**
+ * Command parser function that can help extract the arguments for each important operation
+ */
 public class CommandParser {
 
   final private static String USAGE =
@@ -30,6 +33,12 @@ public class CommandParser {
   final public static String EMAIL_COMMAND = "--email";
   final public static String LETTER_COMMAND = "--letter";
 
+  /**
+   * The function that can extracts the arguments for each important operation
+   *
+   * @param command The command typed in by the user
+   * @return A hash map contains the operations mapped to their arguments
+   */
   public static HashMap<String, String> getArguments(String[] command) {
     HashMap<String, String> arguments = new HashMap<>();
     for (int i = ZERO; i < command.length; i++) {

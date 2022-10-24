@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Main function to auto-generate messages (email or letter) by taking user's commands to specify
+ * the template file, csv file, and the output directory
+ */
 public class Main {
 
   final public static String ABSOLUTE_PATH = new File(
@@ -26,6 +29,12 @@ public class Main {
   final private static String EMPTY = "";
   final private static String SPACE = " ";
 
+  /**
+   * The main program to auto-generate messages and output to the specific directory
+   *
+   * @param args The command typed in by the user
+   * @throws IOException Related to the Scanner IO
+   */
   public static void main(String[] args) throws IOException {
     System.out.println(ABSOLUTE_PATH);
     // Parse the command input
