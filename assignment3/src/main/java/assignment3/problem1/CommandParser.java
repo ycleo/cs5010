@@ -24,14 +24,14 @@ public class CommandParser {
           + "                              Required if --letter is used\n\n"
           + "   --output-dir <path>        accept the name of a folder, all output is placed in this folder\n\n"
           + "   --csv-file <path>          accept the name of the csv file to process\n";
-  final public static String NO_CV_FILE_IMPORT_ERROR_MESSAGE = "\nError: --csv-file operation was not provided.\n";
-  final public static String NO_OUTPUT_DIR_ERROR_MESSAGE = "\nError: --output-dir operation was not provided.\n";
-  final public static String OPERATION_BUT_NO_TEMPLATE_ERROR_MESSAGE = "\nError: --email provided but no --email-template was given.\n";
-  final public static String TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE = "\nError: --email-template provided with no --email operation.\n";
-  final public static String EMAIL = "email";
-  final public static String LETTER = "letter";
-  final public static String EMAIL_COMMAND = "--email";
-  final public static String LETTER_COMMAND = "--letter";
+  final private static String NO_CV_FILE_IMPORT_ERROR_MESSAGE = "\nError: --csv-file operation was not provided.\n";
+  final private static String NO_OUTPUT_DIR_ERROR_MESSAGE = "\nError: --output-dir operation was not provided.\n";
+  final private static String OPERATION_BUT_NO_TEMPLATE_ERROR_MESSAGE = "\nError: --email provided but no --email-template was given.\n";
+  final private static String TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE = "\nError: --email-template provided with no --email operation.\n";
+  final private static String EMAIL = "email";
+  final private static String LETTER = "letter";
+  final private static String EMAIL_COMMAND = "--email";
+  final private static String LETTER_COMMAND = "--letter";
 
   /**
    * The function that can extracts the arguments for each important operation

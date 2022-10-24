@@ -14,13 +14,34 @@ import java.util.Scanner;
  */
 public class Main {
 
+  /**
+   * The absolute path to the current project folder
+   */
   final public static String ABSOLUTE_PATH = new File(
       "").getAbsolutePath();  // ...../Student_ycleo/assignment3
+  /**
+   * number zero
+   */
   final public static int ZERO = 0;
+  /**
+   * number one
+   */
   final public static int ONE = 1;
+  /**
+   * The email template importing command
+   */
   final public static String EMAIL_TEMPLATE_COMMAND = "--email-template";
+  /**
+   * The letter template importing command
+   */
   final public static String LETTER_TEMPLATE_COMMAND = "--letter-template";
+  /**
+   * The csv file importing command
+   */
   final public static String CSV_IMPORT_COMMAND = "--csv-file";
+  /**
+   * The output directory command
+   */
   final public static String OUTPUT_DIRECTORY_COMMAND = "--output-dir";
   final private static List<List<String>> customersIno = new ArrayList<>();
   final private static String INFO_DELIMITER = ",(?=([^\\\"]|\\\"[^\\\"]*\\\")*$)";
@@ -36,7 +57,6 @@ public class Main {
    * @throws IOException Related to the Scanner IO
    */
   public static void main(String[] args) throws IOException {
-    System.out.println(ABSOLUTE_PATH);
     // Parse the command input
     Scanner commandScanner = new Scanner(System.in);
     String[] command = commandScanner.nextLine().strip()
