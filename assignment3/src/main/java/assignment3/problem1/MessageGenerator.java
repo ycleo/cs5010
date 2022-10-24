@@ -11,6 +11,8 @@ public class MessageGenerator {
   private static String ABSOLUTE_PATH = new File("").getAbsolutePath();
   private static String CUSTOMER_INFO_CSV_PATH = ABSOLUTE_PATH.concat("/src/main/java/assignment3/problem1/insurance-company-members.csv");
   private static String INFO_DELIMITER = ",(?=([^\\\"]|\\\"[^\\\"]*\\\")*$)";
+  private static String REMOVE_REDUNDANT_SPACE_REGEX = "\\s+";
+  private static String SPACE = " ";
   private static String EMAIL_COMMAND = "--email";
   private static String EMAIL_TEMPLATE_COMMAND = "--email-template";
   private static String LETTER_COMMAND = "--letter";
@@ -19,38 +21,31 @@ public class MessageGenerator {
   private static List<List<String>> customersIno = new ArrayList<>();
 
   public static void main(String[] args) throws IOException {
-
-    // Loads the csv file into customers' information array
-    // System.out.println(CUSTOMER_INFO_CSV_PATH);
-    Scanner scan = new Scanner(new File(CUSTOMER_INFO_CSV_PATH));
-    String[] infoType = scan.nextLine().split(INFO_DELIMITER);
+    // Get the information types
+    Scanner csvScanner = new Scanner(new File(CUSTOMER_INFO_CSV_PATH));
+    String[] infoType = csvScanner.nextLine().split(INFO_DELIMITER);
     int infoTypeNum = infoType.length;
 
-    while(scan.hasNext()) {
-      String[] info = scan.nextLine().split(INFO_DELIMITER);
-      if (info.length == infoTypeNum) {
+    // Loads the csv file into customers' information array
+    while(csvScanner.hasNext()) {
+      String[] info = csvScanner.nextLine().split(INFO_DELIMITER);
         customersIno.add(Arrays.asList(info));
-      }
     }
-
-    for (int i = 0; i < customersIno.size(); i++) {
-      System.out.println(customersIno.get(i));
-    }
-    System.out.println(customersIno.size());
+    csvScanner.close();
 
     // Parse the command input
-    Scanner scanner = new Scanner(System.in);
-    String input = scanner.nextLine();
-//    outputMessagesToDirectory(input, customersIno);
-    scanner.close();
+    Scanner commandScanner = new Scanner(System.in);
+    String[] command = commandScanner.nextLine().strip().replaceAll(REMOVE_REDUNDANT_SPACE_REGEX, SPACE).split(SPACE);
+    outputMessagesToDirectory(command, customersIno);
+    commandScanner.close();
   }
 
-  public List<Message> generateMessages(String input, List<CustomerInfo> allCustomersInfo) throws IOException {
+  private static void outputMessagesToDirectory(String[] command, List<List<String>> customersIno) throws IOException {
+
+  }
+
+  public List<Message> generateMessages(String[] command, List<List<String>> customersIno) throws IOException {
     return null;
-  }
-
-  public static void outputMessagesToDirectory(String input, List<CustomerInfo> allCustomersInfo) throws IOException {
-
   }
 }
 
