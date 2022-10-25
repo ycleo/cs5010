@@ -1,45 +1,40 @@
 package assignment3.problem1;
 
-import static assignment3.problem1.Main.CSV_IMPORT_COMMAND;
-import static assignment3.problem1.Main.EMAIL_TEMPLATE_COMMAND;
-import static assignment3.problem1.Main.LETTER_TEMPLATE_COMMAND;
-import static assignment3.problem1.Main.ONE;
-import static assignment3.problem1.Main.OUTPUT_DIRECTORY_COMMAND;
-import static assignment3.problem1.Main.ZERO;
+import static assignment3.problem1.StaticStrings.*;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Command parser function that can help extract the arguments for each important operation
  */
 public class CommandParser {
 
-  final private static String USAGE =
-      "\nUsage:\n"
-          + "   --email                    only generate email messages\n"
-          + "   --email-template <file>    accept a filename that holds the email template.\n"
-          + "                              Required if --email is used\n\n"
-          + "   --letter                   only generate letters\n"
-          + "   --letter-template <file>   accept a filename that holds the letter template.\n"
-          + "                              Required if --letter is used\n\n"
-          + "   --output-dir <path>        accept the name of a folder, all output is placed in this folder\n\n"
-          + "   --csv-file <path>          accept the name of the csv file to process\n";
-  final private static String NO_CV_FILE_IMPORT_ERROR_MESSAGE = "\nError: --csv-file operation was not provided.\n";
-  final private static String NO_OUTPUT_DIR_ERROR_MESSAGE = "\nError: --output-dir operation was not provided.\n";
-  final private static String OPERATION_BUT_NO_TEMPLATE_ERROR_MESSAGE = "\nError: --email provided but no --email-template was given.\n";
-  final private static String TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE = "\nError: --email-template provided with no --email operation.\n";
-  final private static String EMAIL = "email";
-  final private static String LETTER = "letter";
-  final private static String EMAIL_COMMAND = "--email";
-  final private static String LETTER_COMMAND = "--letter";
+  private Scanner commandScanner;
+  private String[] command;
+
+  /**
+   * Constructs the CommandParser with a new internal Scanner
+   */
+  public CommandParser() {
+    this.commandScanner = new Scanner(System.in);
+  }
+
+  /**
+   * Parses the user input command and store into our command field
+   */
+  public void parseCommand() {
+    this.command = this.commandScanner.nextLine().strip()
+        .replaceAll(REMOVE_REDUNDANT_SPACE_REGEX, SPACE).split(SPACE);
+    this.commandScanner.close();
+  }
 
   /**
    * The function that can extracts the arguments for each important operation
    *
-   * @param command The command typed in by the user
    * @return A hash map contains the operations mapped to their arguments
    */
-  public static HashMap<String, String> getArguments(String[] command) {
+  public HashMap<String, String> getCommandArguments() {
     HashMap<String, String> arguments = new HashMap<>();
     for (int i = ZERO; i < command.length; i++) {
       if (command[i].equals(CSV_IMPORT_COMMAND) ||
@@ -52,10 +47,19 @@ public class CommandParser {
         arguments.put(command[i], null);
       }
     }
+    this.checkCommandValid(arguments);
+    return arguments;
+  }
 
+  /**
+   * Check the command is valid or not
+   *
+   * @param arguments A hash map contains the operations mapped to their arguments
+   */
+  private void checkCommandValid(HashMap<String, String> arguments) {
     // check the command is valid
     if (!arguments.containsKey(CSV_IMPORT_COMMAND)) {
-      throw new IllegalArgumentException(NO_CV_FILE_IMPORT_ERROR_MESSAGE + USAGE);
+      throw new IllegalArgumentException(NO_CSV_FILE_IMPORT_ERROR_MESSAGE + USAGE);
     }
     if (!arguments.containsKey(OUTPUT_DIRECTORY_COMMAND)) {
       throw new IllegalArgumentException(NO_OUTPUT_DIR_ERROR_MESSAGE + USAGE);
@@ -74,8 +78,5 @@ public class CommandParser {
       throw new IllegalArgumentException(
           TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE.replaceAll(EMAIL, LETTER) + USAGE);
     }
-
-    return arguments;
   }
-
 }
