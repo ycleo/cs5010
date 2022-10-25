@@ -1,16 +1,19 @@
 package assignment3.problem1;
 
-import static assignment3.problem1.Main.ABSOLUTE_PATH;
-import static assignment3.problem1.Main.EMAIL_TEMPLATE_COMMAND;
-import static assignment3.problem1.Main.OUTPUT_DIRECTORY_COMMAND;
-import static assignment3.problem1.Main.ZERO;
+import static assignment3.problem1.StaticStrings.ABSOLUTE_PATH;
+import static assignment3.problem1.StaticStrings.DASH;
+import static assignment3.problem1.StaticStrings.DOUBLE_LEFT_BRACKET_REGEX;
+import static assignment3.problem1.StaticStrings.DOUBLE_RIGHT_BRACKET_REGEX;
+import static assignment3.problem1.StaticStrings.ONE;
+import static assignment3.problem1.StaticStrings.OUTPUT_DIRECTORY_COMMAND;
+import static assignment3.problem1.StaticStrings.SEND_TO;
+import static assignment3.problem1.StaticStrings.TXT;
+import static assignment3.problem1.StaticStrings.ZERO;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,44 +22,58 @@ import java.util.List;
  */
 public class MessageGenerator {
 
-  final private static String DOUBLE_LEFT_BRACKET_REGEX = "\\[\\[";
-  final private static String DOUBLE_RIGHT_BRACKET_REGEX = "\\]\\]";
-  final private static String EMAIL_OUTPUT = "/emails-output/email-to-";
-  final private static String LETTER_OUTPUT = "/letters-output/letter-to-";
-  final private static String TXT = ".txt";
+  private HashMap<String, String> arguments;
+  private String[] infoType;
+  private List<List<String>> customersIno;
+
+  /**
+   * Constructs a Message Generator based on the command arguments and the loaded csv file
+   *
+   * @param csvLoader the csv loader that already contains customers' information
+   * @param arguments A hash map contains the operations mapped to their arguments
+   */
+  public MessageGenerator(CSVLoader csvLoader, HashMap<String, String> arguments) {
+    this.arguments = arguments;
+    this.infoType = csvLoader.getInfoType();
+    this.customersIno = csvLoader.getCustomersInfo();
+  }
 
   /**
    * The function that can generate messages based on the template type
    *
    * @param templateCommand The command operation specify the template type
-   * @param infoType        The information type listed in the CSV file
-   * @param customersIno    Every customer's information listed in the CSV file
-   * @param arguments       A hash map contains the operations mapped to their arguments
    * @throws IOException Related to the Path access operations
    */
-  public static void generateMessage(String templateCommand, String[] infoType,
-      List<List<String>> customersIno, HashMap<String, String> arguments)
-      throws IOException {
-    if (!arguments.containsKey(templateCommand)) {
-      return;
+  public void generateMessage(String templateCommand) throws IOException {
+    if (arguments.containsKey(templateCommand)) {
+      // get the output directory absolute path
+      String outputDirectory = ABSOLUTE_PATH + this.arguments.get(OUTPUT_DIRECTORY_COMMAND);
+      // write the information into the output directory
+      writeToTextFile(templateCommand, outputDirectory);
     }
-    // get the output directory and the email template file
-    String outputDirectory = ABSOLUTE_PATH + arguments.get(OUTPUT_DIRECTORY_COMMAND);
-    String templateFile = ABSOLUTE_PATH + arguments.get(templateCommand);
+  }
 
-    Path emailTemplate = Paths.get(templateFile);
-    Charset charset = StandardCharsets.UTF_8;
+  /**
+   * Writes the contents into the specified text file
+   *
+   * @param templateCommand The command operation specify the template type
+   * @param outputDirectory The directory path specified by the user for the output
+   * @throws IOException Related to the Path access operations
+   */
+  private void writeToTextFile(String templateCommand, String outputDirectory) throws IOException {
+    Path templatePath = Path.of(ABSOLUTE_PATH + this.arguments.get(templateCommand));
 
-    for (List<String> strings : customersIno) {
-      String content = Files.readString(emailTemplate, charset);
-      for (int j = ZERO; j < infoType.length; j++) {
-        String regex = DOUBLE_LEFT_BRACKET_REGEX + infoType[j] + DOUBLE_RIGHT_BRACKET_REGEX;
-        content = content.replaceAll(regex, strings.get(j));
+    int customerCount = ZERO;
+    for (List<String> info : this.customersIno) {
+      customerCount += ONE;
+      String content = Files.readString(templatePath, UTF_8);
+      for (int i = ZERO; i < infoType.length; i++) {
+        String regex = DOUBLE_LEFT_BRACKET_REGEX + infoType[i] + DOUBLE_RIGHT_BRACKET_REGEX;
+        content = content.replaceAll(regex, info.get(i));
       }
-      String outputFolder =
-          templateCommand.equals(EMAIL_TEMPLATE_COMMAND) ? EMAIL_OUTPUT : LETTER_OUTPUT;
-      Files.writeString(Path.of(outputDirectory + outputFolder + strings.get(ZERO) + TXT), content,
-          charset);
+      String outputFilePath =
+          outputDirectory + templateCommand + SEND_TO + customerCount + DASH + info.get(ZERO) + TXT;
+      Files.writeString(Path.of(outputFilePath), content, UTF_8);
     }
   }
 }
