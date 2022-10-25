@@ -37,6 +37,15 @@ public class CSVLoader {
   }
 
   /**
+   * Gets the csv scanner
+   *
+   * @return the csv scanner
+   */
+  public Scanner getCSVScanner() {
+    return this.csvScanner;
+  }
+
+  /**
    * Gets the information types (1st row in the csv file)
    *
    * @return A string list that contains the information types

@@ -28,30 +28,35 @@ public class MessageGenerator {
   private List<List<String>> customersInfo;
 
   /**
-   * Constructs a Message Generator based on the command arguments and the loaded csv file
+   * Constructs a Message Generator based on the command arguments and the loaded csv information
    *
-   * @param csvLoader the csv loader that already contains customers' information
-   * @param arguments A hash map contains the operations mapped to their arguments
+   * @param infoType      Information type
+   * @param customersInfo Customers' information
+   * @param arguments     A hash map contains the operations mapped to their arguments
    */
-  public MessageGenerator(CSVLoader csvLoader, HashMap<String, String> arguments) {
+  public MessageGenerator(String[] infoType, List<List<String>> customersInfo,
+      HashMap<String, String> arguments) {
     this.arguments = arguments;
-    this.infoType = csvLoader.getInfoType();
-    this.customersInfo = csvLoader.getCustomersInfo();
+    this.infoType = infoType;
+    this.customersInfo = customersInfo;
   }
 
   /**
    * The function that can generate messages based on the template type
    *
    * @param templateCommand The command operation specify the template type
+   * @return boolean value that the message was generated successfully
    * @throws IOException Related to the Path access operations
    */
-  public void generateMessage(String templateCommand) throws IOException {
+  public boolean generateMessage(String templateCommand) throws IOException {
     if (arguments.containsKey(templateCommand)) {
       // get the output directory absolute path
       String outputDirectory = ABSOLUTE_PATH + this.arguments.get(OUTPUT_DIRECTORY_COMMAND);
       // write the information into the output directory
       writeToTextFile(templateCommand, outputDirectory);
+      return true;
     }
+    return false;
   }
 
   /**

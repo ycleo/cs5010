@@ -6,6 +6,7 @@ import static assignment3.problem1.StaticStrings.LETTER_TEMPLATE_COMMAND;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Main function to auto-generate messages (email or letter) by taking user's commands to specify
@@ -21,7 +22,8 @@ public class Main {
    */
   public static void main(String[] args) throws IOException {
     // Instantiate a command parser
-    CommandParser commandParser = new CommandParser();
+    Scanner commandScanner = new Scanner(System.in);
+    CommandParser commandParser = new CommandParser(commandScanner);
 
     // Parse the command input
     commandParser.parseCommand();
@@ -33,7 +35,8 @@ public class Main {
     CSVLoader csvLoader = new CSVLoader(arguments.get(CSV_IMPORT_COMMAND));
 
     // Instantiate a message generator
-    MessageGenerator messageGenerator = new MessageGenerator(csvLoader, arguments);
+    MessageGenerator messageGenerator = new MessageGenerator(csvLoader.getInfoType(),
+        csvLoader.getCustomersInfo(), arguments);
     // generate email message
     messageGenerator.generateMessage(EMAIL_TEMPLATE_COMMAND);
     // generate letter message

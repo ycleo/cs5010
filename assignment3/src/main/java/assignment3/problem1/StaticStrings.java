@@ -21,6 +21,10 @@ public class StaticStrings {
    */
   final public static int ONE = 1;
   /**
+   * number seven
+   */
+  final public static int SEVEN = 7;
+  /**
    * The email template importing command
    */
   final public static String EMAIL_TEMPLATE_COMMAND = "--email-template";

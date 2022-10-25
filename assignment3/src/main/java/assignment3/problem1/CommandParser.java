@@ -15,19 +15,25 @@ public class CommandParser {
   private String[] command;
 
   /**
-   * Constructs the CommandParser with a new internal Scanner
+   * Constructs the CommandParser with a new Scanner
+   *
+   * @param commandScanner new Scanner object
    */
-  public CommandParser() {
-    this.commandScanner = new Scanner(System.in);
+  public CommandParser(Scanner commandScanner) {
+    this.commandScanner = commandScanner;
   }
+
 
   /**
    * Parses the user input command and store into our command field
+   *
+   * @return boolean value that the number of commands are at least 7
    */
-  public void parseCommand() {
+  public boolean parseCommand() {
     this.command = this.commandScanner.nextLine().strip()
         .replaceAll(REMOVE_REDUNDANT_SPACE_REGEX, SPACE).split(SPACE);
     this.commandScanner.close();
+    return this.command.length >= SEVEN;
   }
 
   /**
@@ -79,6 +85,24 @@ public class CommandParser {
       throw new IllegalArgumentException(
           TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE.replaceAll(EMAIL, LETTER) + USAGE);
     }
+  }
+
+  /**
+   * Gets the command scanner
+   *
+   * @return the command scanner
+   */
+  public Scanner getCommandScanner() {
+    return this.commandScanner;
+  }
+
+  /**
+   * Gets the commands list
+   *
+   * @return the commands list
+   */
+  public String[] getCommand() {
+    return this.command;
   }
 
   /**
