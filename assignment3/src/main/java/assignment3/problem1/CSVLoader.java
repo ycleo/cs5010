@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -14,9 +15,9 @@ import java.util.Scanner;
  */
 public class CSVLoader {
 
+  private Scanner csvScanner;
   private String[] infoType;
   private List<List<String>> customersInfo;
-  private Scanner csvScanner;
 
   /**
    * Constructs CSVLoader with the path of the csv file
@@ -64,5 +65,46 @@ public class CSVLoader {
       csvRow[i] = csvRow[i].replaceAll(QUOTATION_MARK, EMPTY);
     }
     return csvRow;
+  }
+
+  /**
+   * Tests the object equals to the csv loader or not
+   *
+   * @param o tested object
+   * @return boolean result
+   */
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+    CSVLoader csvLoader = (CSVLoader) o;
+    return this.csvScanner.equals(csvLoader.csvScanner) &&
+        this.infoType.equals(csvLoader.infoType) &&
+        this.customersInfo.equals(csvLoader.customersInfo);
+  }
+
+  /**
+   * Return the hash code represents the csv loader
+   *
+   * @return the hash code represents the csv loader
+   */
+  public int hashCode() {
+    return Objects.hash(this.csvScanner, this.infoType, this.customersInfo);
+  }
+
+  /**
+   * Returns the string represents the csv loader
+   *
+   * @return the string represents the csv loader
+   */
+  public String toString() {
+    return "CommandParser: { "
+        + "csv scanner: " + this.csvScanner.toString()
+        + "; information type: " + this.infoType.toString()
+        + "; customers' information: " + this.customersInfo.toString()
+        + " }";
   }
 }

@@ -6,7 +6,6 @@ import static assignment3.problem1.StaticStrings.LETTER_TEMPLATE_COMMAND;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Main function to auto-generate messages (email or letter) by taking user's commands to specify

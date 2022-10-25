@@ -3,6 +3,7 @@ package assignment3.problem1;
 import static assignment3.problem1.StaticStrings.*;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -78,5 +79,42 @@ public class CommandParser {
       throw new IllegalArgumentException(
           TEMPLATE_BUT_NO_OPERATION_ERROR_MESSAGE.replaceAll(EMAIL, LETTER) + USAGE);
     }
+  }
+
+  /**
+   * Tests the object equals to the command parser or not
+   *
+   * @param o tested object
+   * @return boolean result
+   */
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+    CommandParser commandParser = (CommandParser) o;
+    return this.commandScanner.equals(commandParser.commandScanner) &&
+        this.command.equals(commandParser.command);
+  }
+
+  /**
+   * Return the hash code represents the command parser
+   *
+   * @return the hash code represents the command parser
+   */
+  public int hashCode() {
+    return Objects.hash(this.commandScanner, this.command);
+  }
+
+  /**
+   * Returns the string represents the command parser
+   *
+   * @return the string represents the command parser
+   */
+  public String toString() {
+    return "CommandParser: { command scanner: " + this.commandScanner.toString() + "; command: "
+        + this.command + " }";
   }
 }
