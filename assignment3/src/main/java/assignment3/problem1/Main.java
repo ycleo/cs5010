@@ -1,12 +1,12 @@
 package assignment3.problem1;
 
-import java.io.File;
+import static assignment3.problem1.StaticStrings.CSV_IMPORT_COMMAND;
+import static assignment3.problem1.StaticStrings.EMAIL_TEMPLATE_COMMAND;
+import static assignment3.problem1.StaticStrings.LETTER_TEMPLATE_COMMAND;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Main function to auto-generate messages (email or letter) by taking user's commands to specify
@@ -15,74 +15,30 @@ import java.util.Scanner;
 public class Main {
 
   /**
-   * The absolute path to the current project folder
-   */
-  final public static String ABSOLUTE_PATH = new File(
-      "").getAbsolutePath();  // ...../Student_ycleo/assignment3
-  /**
-   * number zero
-   */
-  final public static int ZERO = 0;
-  /**
-   * number one
-   */
-  final public static int ONE = 1;
-  /**
-   * The email template importing command
-   */
-  final public static String EMAIL_TEMPLATE_COMMAND = "--email-template";
-  /**
-   * The letter template importing command
-   */
-  final public static String LETTER_TEMPLATE_COMMAND = "--letter-template";
-  /**
-   * The csv file importing command
-   */
-  final public static String CSV_IMPORT_COMMAND = "--csv-file";
-  /**
-   * The output directory command
-   */
-  final public static String OUTPUT_DIRECTORY_COMMAND = "--output-dir";
-  final private static List<List<String>> customersIno = new ArrayList<>();
-  final private static String INFO_DELIMITER = ",(?=([^\\\"]|\\\"[^\\\"]*\\\")*$)";
-  final private static String REMOVE_REDUNDANT_SPACE_REGEX = "\\s+";
-  final private static String QUOTATION_MARK = "\"";
-  final private static String EMPTY = "";
-  final private static String SPACE = " ";
-
-  /**
    * The main program to auto-generate messages and output to the specific directory
    *
    * @param args The command typed in by the user
    * @throws IOException Related to the Scanner IO
    */
   public static void main(String[] args) throws IOException {
+    // Instantiate a command parser
+    CommandParser commandParser = new CommandParser();
+
     // Parse the command input
-    Scanner commandScanner = new Scanner(System.in);
-    String[] command = commandScanner.nextLine().strip()
-        .replaceAll(REMOVE_REDUNDANT_SPACE_REGEX, SPACE).split(SPACE);
-    commandScanner.close();
+    commandParser.parseCommand();
 
-    // get the csv path, template files, and the output directory
-    HashMap<String, String> arguments = CommandParser.getArguments(command);
+    // Get the command arguments: commands mapping to csv path, template files, and the output directory
+    HashMap<String, String> arguments = commandParser.getCommandArguments();
 
-    // Get the information types
-    Scanner csvScanner = new Scanner(
-        new File(ABSOLUTE_PATH.concat(arguments.get(CSV_IMPORT_COMMAND))));
-    String[] infoType = csvScanner.nextLine().replaceAll(QUOTATION_MARK, EMPTY)
-        .split(INFO_DELIMITER);
+    // Instantiate a csv loader with csv path provided
+    CSVLoader csvLoader = new CSVLoader(arguments.get(CSV_IMPORT_COMMAND));
 
-    // Loads the csv file into customers' information array
-    while (csvScanner.hasNext()) {
-      String[] info = csvScanner.nextLine().replaceAll(QUOTATION_MARK, EMPTY).split(INFO_DELIMITER);
-      customersIno.add(Arrays.asList(info));
-    }
-    csvScanner.close();
-
+    // Instantiate a message generator
+    MessageGenerator messageGenerator = new MessageGenerator(csvLoader, arguments);
     // generate email message
-    MessageGenerator.generateMessage(EMAIL_TEMPLATE_COMMAND, infoType, customersIno, arguments);
+    messageGenerator.generateMessage(EMAIL_TEMPLATE_COMMAND);
     // generate letter message
-    MessageGenerator.generateMessage(LETTER_TEMPLATE_COMMAND, infoType, customersIno, arguments);
+    messageGenerator.generateMessage(LETTER_TEMPLATE_COMMAND);
   }
 }
 
