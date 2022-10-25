@@ -17,3 +17,6 @@
 
 8. The file format would be <code>--(email/letter)-template-send-to-customer-(No.)-(first_name).txt</code><br>
 <img src="directories.png">
+
+
+UML: <code>src/main/java/assignment3/problem1/HW3_UML.png</code>
