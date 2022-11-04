@@ -51,7 +51,11 @@ public class MessageGenerator {
   public boolean generateMessage(String templateCommand) throws IOException {
     if (arguments.containsKey(templateCommand)) {
       // get the output directory absolute path
-      String outputDirectory = ABSOLUTE_PATH + this.arguments.get(OUTPUT_DIRECTORY_COMMAND);
+      String path = this.arguments.get(OUTPUT_DIRECTORY_COMMAND);
+      if (!path.contains(ABSOLUTE_PATH)) {
+        path = ABSOLUTE_PATH + path;
+      }
+      String outputDirectory = path;
       // write the information into the output directory
       writeToTextFile(templateCommand, outputDirectory);
       return true;
@@ -67,7 +71,11 @@ public class MessageGenerator {
    * @throws IOException Related to the Path access operations
    */
   private void writeToTextFile(String templateCommand, String outputDirectory) throws IOException {
-    Path templatePath = Path.of(ABSOLUTE_PATH + this.arguments.get(templateCommand));
+    String templatePathString = this.arguments.get(templateCommand);
+    if (!templatePathString.contains(ABSOLUTE_PATH)) {
+      templatePathString = ABSOLUTE_PATH + templatePathString;
+    }
+    Path templatePath = Path.of(templatePathString);
 
     int customerCount = ZERO;
     for (List<String> info : this.customersInfo) {

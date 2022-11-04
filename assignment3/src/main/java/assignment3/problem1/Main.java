@@ -1,5 +1,6 @@
 package assignment3.problem1;
 
+import static assignment3.problem1.StaticStrings.ABSOLUTE_PATH;
 import static assignment3.problem1.StaticStrings.CSV_IMPORT_COMMAND;
 import static assignment3.problem1.StaticStrings.EMAIL_TEMPLATE_COMMAND;
 import static assignment3.problem1.StaticStrings.LETTER_TEMPLATE_COMMAND;
