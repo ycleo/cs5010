@@ -26,7 +26,10 @@ public class CSVLoader {
    * @throws FileNotFoundException Exception if the csv file cannot be found
    */
   public CSVLoader(String path) throws FileNotFoundException {
-    this.csvScanner = new Scanner(new File(ABSOLUTE_PATH.concat(path)));
+    if (!path.contains(ABSOLUTE_PATH)) {
+      path = ABSOLUTE_PATH.concat(path);
+    }
+    this.csvScanner = new Scanner(new File(path));
     this.infoType = trimQuotationMark(this.csvScanner.nextLine().split(INFO_DELIMITER));
     this.customersInfo = new ArrayList<>();
     while (this.csvScanner.hasNext()) {
