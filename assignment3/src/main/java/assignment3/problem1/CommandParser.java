@@ -2,6 +2,7 @@ package assignment3.problem1;
 
 import static assignment3.problem1.StaticStrings.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -11,29 +12,15 @@ import java.util.Scanner;
  */
 public class CommandParser {
 
-  private Scanner commandScanner;
   private String[] command;
 
   /**
    * Constructs the CommandParser with a new Scanner
    *
-   * @param commandScanner new Scanner object
+   * @param command command instructions
    */
-  public CommandParser(Scanner commandScanner) {
-    this.commandScanner = commandScanner;
-  }
-
-
-  /**
-   * Parses the user input command and store into our command field
-   *
-   * @return boolean value that the number of commands are at least 7
-   */
-  public boolean parseCommand() {
-    this.command = this.commandScanner.nextLine().strip()
-        .replaceAll(REMOVE_REDUNDANT_SPACE_REGEX, SPACE).split(SPACE);
-    this.commandScanner.close();
-    return this.command.length >= SEVEN;
+  public CommandParser(String[] command) {
+    this.command = command;
   }
 
   /**
@@ -88,15 +75,6 @@ public class CommandParser {
   }
 
   /**
-   * Gets the command scanner
-   *
-   * @return the command scanner
-   */
-  public Scanner getCommandScanner() {
-    return this.commandScanner;
-  }
-
-  /**
    * Gets the commands list
    *
    * @return the commands list
@@ -119,8 +97,7 @@ public class CommandParser {
       return false;
     }
     CommandParser commandParser = (CommandParser) o;
-    return this.commandScanner.equals(commandParser.commandScanner) &&
-        this.command.equals(commandParser.command);
+    return Arrays.equals(this.command, commandParser.command);
   }
 
   /**
@@ -129,7 +106,7 @@ public class CommandParser {
    * @return the hash code represents the command parser
    */
   public int hashCode() {
-    return Objects.hash(this.commandScanner, this.command);
+    return Objects.hash((Object) this.command);
   }
 
   /**
@@ -138,7 +115,7 @@ public class CommandParser {
    * @return the string represents the command parser
    */
   public String toString() {
-    return "CommandParser: { command scanner: " + this.commandScanner.toString() + "; command: "
-        + this.command + " }";
+    return "CommandParser: { command: "
+        + Arrays.toString(this.command) + " }";
   }
 }
